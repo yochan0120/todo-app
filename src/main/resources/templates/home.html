@@ -5,6 +5,22 @@
   <title>SpringTodoList</title>
 </head>
 <body>
+
+  <!-- 追加 -->
+  <div class="create-todo">
+    <!-- th:objectでControllerから送られてきたTodoオブジェクトを受け取っている -->
+    <form method="POST" th:action="@{/}" th:object="${todo}">
+      <!-- 入力値にエラーがあった時のみ表示 -->
+      <p th:errors="*{content}" class="todo-error-message"></p>
+
+       <!-- th:fieldでHTMLのid,name属性を作ってくれる -->
+      <input type="text" th:field="*{content}">
+      <button type="submit">登録</button>
+    </form>
+  </div>
+  <!-- ここまで -->
+  
+  <h1>やること</h1>
   <div th:each="todo : ${allTodo}">
     <p th:text="${todo.content}"></p>
   </div>

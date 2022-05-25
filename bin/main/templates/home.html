@@ -2,10 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" th:href="@{css/home.css}">
   <title>SpringTodoList</title>
 </head>
 <body>
- <h1>やること</h1>
+ <h1>ToDo</h1>
+ <div class="form-area">
   <!-- create追加 -->
   <div class="create-todo">
     <!-- th:objectでControllerから送られてきたTodoオブジェクトを受け取っている -->
@@ -20,8 +22,14 @@
   </div>
   <!-- createここまで -->
   
-  <div th:each="todo : ${allTodo}">
-    <p th:text="${todo.content}"></p>
+    <!-- delete追加 -->
+    <div class="delete-all">
+      <form method="POST" th:action="@{/deleteAll}">
+        <button type="submit">完了を削除</button>
+      </form>
+    </div>
+   <!-- deleteここまで -->
+  
   </div>
     <!-- update変更点 -->
   <div class="flex">      
@@ -43,7 +51,7 @@
     </div>
 
     <div class="complete">
-      <h1>完了済み</h1>
+      <h1>完了</h1>
       <!-- doneのフラグがtrueのものを表示 -->
       <div th:each="todo : ${allTodo}" th:if="${todo.done}">
         <p th:text="${todo.content}"></p>

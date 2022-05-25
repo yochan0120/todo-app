@@ -1,5 +1,6 @@
 package com.example.todoapp.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.todoapp.model.Todo;
 import com.example.todoapp.repository.TodoRepository;
 
-//DBとの具体的な処理（データ取得、新規作成など）を記述するクラス
+// DBとの具体的な処理（データ取得、新規作成など）を記述するクラス
 @Service
 public class TodoService {
 
@@ -31,5 +32,18 @@ public class TodoService {
 	public Todo findById(Integer id) {
 		Optional<Todo> updateTodo = todoRepository.findById(id);
 		return updateTodo.get();
+	}
+
+	// 追加（Todoの全件削除）
+	public void deleteAllTodo() {
+		List<Todo> allTodo = todoRepository.findAll();
+		List<Todo> doneList = new ArrayList<>();
+		// doneがtrueかどうかを判定。trueのものをdoneListに追加する。
+		for (Todo todo : allTodo) {
+			if (todo.getDone()) {
+				doneList.add(todo);
+			}
+		}
+		todoRepository.deleteAll(doneList);
 	}
 }
